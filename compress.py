@@ -10,6 +10,7 @@ from io import BytesIO
 # Version 5: Convert the base64 data to binary and print the binary data to the console
 # Version 6: Convert the binary data to an Image object and display the image
 # Version 7: Convert the Image object to webp format and print the webp data to the console
+# Version 8: Convert the webp data to base64 and print the base64 data to the console
 
 
 def main():
@@ -28,7 +29,9 @@ def main():
             webp_data = BytesIO()
             img.save(webp_data, format='webp')
             
-            print(webp_data.getvalue())
+            webp_data_base64 = base64.b64encode(webp_data.getvalue()).decode('ascii')
+            
+            print(webp_data_base64)
 
 
 if __name__ == "__main__":
