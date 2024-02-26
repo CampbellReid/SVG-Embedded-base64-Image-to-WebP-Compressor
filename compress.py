@@ -12,6 +12,7 @@ from io import BytesIO
 # Version 7: Convert the Image object to webp format and print the webp data to the console
 # Version 8: Convert the webp data to base64 and print the base64 data to the console
 # Version 9: Convert the webp data to base64 and replace the href data in the svg file then print the image href to the console
+# Version 10: Print the whole svg file to the console
 
 
 def main():
@@ -33,8 +34,8 @@ def main():
             webp_data_base64 = base64.b64encode(webp_data.getvalue()).decode('ascii')
             
             elem.attrib['href'] = f'data:image/webp;base64,{webp_data_base64}'
-            
-            print(elem.attrib['href'])
+    
+    print(ET.tostring(root).decode('utf-8'))
 
 
 if __name__ == "__main__":
