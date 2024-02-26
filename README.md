@@ -1,0 +1,1 @@
+# SVG-Embedded-base64-Image-to-WebP-Compressor
