@@ -16,6 +16,7 @@ import sys
 # Version 10: Print the whole svg file to the console
 # Version 11: Save the whole svg file to a new file and open the contents and print to the console
 # Version 12: Allow the user to specify the input and output file
+# Version 13: Make sure the Image href is a data:image and the data is base64
 
 
 def main(input_file, output_file):
@@ -25,6 +26,10 @@ def main(input_file, output_file):
     for elem in root.iter():
         if elem.tag.endswith('image'):
             href_data = elem.attrib['href'].split(',')
+            
+            if len(href_data) != 2:
+                continue
+            
             data_base64_bytes = href_data[1].encode('ascii')
 
             data_bytes = base64.b64decode(data_base64_bytes)
