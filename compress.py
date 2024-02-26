@@ -1,10 +1,13 @@
 import xml.etree.ElementTree as ET
 
-# Version 1: Read input.svg and print it to the console
+# Version 2: Find all the image tag and print them to the console
 def main():
     tree = ET.parse('input.svg')
     root = tree.getroot()
-    print(ET.tostring(root, encoding='utf8').decode('utf8'))
+    
+    for elem in root.iter():
+        if elem.tag.endswith('image'):
+            print(elem.tag, elem.attrib)
 
 if __name__ == "__main__":
     main()
