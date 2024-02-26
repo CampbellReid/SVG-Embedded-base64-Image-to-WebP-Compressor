@@ -9,23 +9,27 @@ from io import BytesIO
 # Version 4: Extract the image href and print the data type and data to the console
 # Version 5: Convert the base64 data to binary and print the binary data to the console
 # Version 6: Convert the binary data to an Image object and display the image
+# Version 7: Convert the Image object to webp format and print the webp data to the console
 
 
 def main():
-	tree = ET.parse('input.svg')
-	root = tree.getroot()
+    tree = ET.parse('input.svg')
+    root = tree.getroot()
 
-	for elem in root.iter():
-		if elem.tag.endswith('image'):
-			href_data = elem.attrib['href'].split(',')
-			data_type = href_data[0].split(';')[0].split(':')[1].split('/')[1]
-			data_base64_bytes = href_data[1].encode('ascii')
+    for elem in root.iter():
+        if elem.tag.endswith('image'):
+            href_data = elem.attrib['href'].split(',')
+            data_base64_bytes = href_data[1].encode('ascii')
 
-			data_bytes = base64.b64decode(data_base64_bytes)
+            data_bytes = base64.b64decode(data_base64_bytes)
 
-			img = Image.open(BytesIO(data_bytes))
+            img = Image.open(BytesIO(data_bytes))
+            
+            webp_data = BytesIO()
+            img.save(webp_data, format='webp')
+            
+            print(webp_data.getvalue())
 
-			img.show()
 
 if __name__ == "__main__":
-	main()
+    main()
